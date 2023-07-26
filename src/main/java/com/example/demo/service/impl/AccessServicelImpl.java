@@ -46,13 +46,16 @@ public class AccessServicelImpl implements AccessService {
                 } else if (access.getNumOfAccess() > 0) {
                     validAccessList.add(access);
                 } else {
+                    user.setMaxUpload(user.getMaxUpload() - access.getStorageSize());
                     accessRepository.delete(access);
                 }
 
             } else {
+                user.setMaxUpload(user.getMaxUpload() - access.getStorageSize());
                 accessRepository.delete(access);
             }
         }
+        userRepository.save(user);
         return validAccessList;
     }
 

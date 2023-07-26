@@ -53,11 +53,9 @@ public class Package {
     private Double storageSize;
 
     private boolean active;
-    private int type;//0 Ko giới hạn , 1 giới hạn ,2 upload
-    //   @Transient
+    private int type;// 0 Ko giới hạn , 1 giới hạn ,2 upload
+    // @Transient
     // private Long total_user;
-
-
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "packages", cascade = CascadeType.ALL)
@@ -74,39 +72,48 @@ public class Package {
         this.dowloads = dowloads;
         this.storageSize = storageSize;
     }
-public int getOrderCount() {
-    int count = 0;
-    if (orders != null) {
-        for (Order order : orders) {
-            if (order.isOrderStatus()) {
-                count++;
+
+    public int getOrderCount() {
+        int count = 0;
+        if (orders != null) {
+            for (Order order : orders) {
+                if (order.isOrderStatus()) {
+                    count++;
+                }
             }
         }
+        return count;
     }
-    return count;
-}
 
     // public Long getTotal_user(EntityManager em) {
-    //     CriteriaBuilder builder = em.getCriteriaBuilder();
-    //     CriteriaQuery<Long> query = builder.createQuery(Long.class);
-    //     Root<Order> root = query.from(Order.class);
-    //     query.select(builder.countDistinct(root.get("user")))
-    //             .where(builder.equal(root.get("packages"), this));
-    //     return em.createQuery(query).getSingleResult();
+    // CriteriaBuilder builder = em.getCriteriaBuilder();
+    // CriteriaQuery<Long> query = builder.createQuery(Long.class);
+    // Root<Order> root = query.from(Order.class);
+    // query.select(builder.countDistinct(root.get("user")))
+    // .where(builder.equal(root.get("packages"), this));
+    // return em.createQuery(query).getSingleResult();
     // }
 
     // public void setTotal_user(EntityManager em) {
-    //     CriteriaBuilder builder = em.getCriteriaBuilder();
-    //     CriteriaQuery<Long> query = builder.createQuery(Long.class);
-    //     Root<Order> root = query.from(Order.class);
-    //     query.select(builder.countDistinct(root.get("user")))
-    //          .where(builder.equal(root.get("packages"), this));
-    //     Long count = em.createQuery(query).getSingleResult();
-    //     this.total_user = count;
+    // CriteriaBuilder builder = em.getCriteriaBuilder();
+    // CriteriaQuery<Long> query = builder.createQuery(Long.class);
+    // Root<Order> root = query.from(Order.class);
+    // query.select(builder.countDistinct(root.get("user")))
+    // .where(builder.equal(root.get("packages"), this));
+    // Long count = em.createQuery(query).getSingleResult();
+    // this.total_user = count;
     // }
+    public float getSumOrder() {
+        float sum = 0;
+        if (orders != null) {
+            for (Order order : orders) {
+                if (order.isOrderStatus()) {
+                    sum = +order.getOrderDetail().getPrice();
 
-
-
-
+                }
+            }
+        }
+        return sum;
+    }
 
 }

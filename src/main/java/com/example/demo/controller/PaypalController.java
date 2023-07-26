@@ -193,17 +193,16 @@ public class PaypalController {
 
 			// Check if the user has the admin role
 			boolean isUser = user.getRoles().contains(RoleName.USER);
-
+			user.setMaxUpload(user.getMaxUpload() +order1.getPackages().getStorageSize());
 			if (!isUser) {
 				Set<Role> roles = new HashSet<>();
 				Role userRole = roleService.findByName(RoleName.USER)
 						.orElseThrow(() -> new RuntimeException("Role not found"));
 				roles.add(userRole);
 				user.setRoles(roles);
-				user = userService.save(user);
 
 			}
-
+			userService.save(user);
 			if (payment.getState().equals("approved")) {
 				// Redirect to the file detail page with the file_id parameter
 				if ("null".equals(id)) {
@@ -238,6 +237,10 @@ public class PaypalController {
 				return ResponseEntity.badRequest()
 						.body(new ErrorResponse("There is already an active package with type Charged per upload."));
 			}
+
+		} else if (packageForm.getPrice() == 0) {
+			return ResponseEntity.badRequest()
+					.body(new ErrorResponse("Please enter a valid price for the package."));
 		}
 		Package package1 = new Package(packageForm.getName(), packageForm.getDuration(), packageForm.getPrice(),
 				packageForm.getDowloads(), packageForm.getStorageSize());

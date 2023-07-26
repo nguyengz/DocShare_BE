@@ -34,6 +34,7 @@ public class FileResponse {
     private Long userId;
     private FriendResponse user;
     private Category category;
+    private int totalDownload;
     Set<Tag> tags = new HashSet<>();
     boolean like;
     private String userName;
@@ -81,6 +82,7 @@ public class FileResponse {
         this.category = file.getCategory();
         this.tags = file.getTags();
         this.like = like;
+        this.totalDownload = file.getTotalDownload();
     }
 
 }

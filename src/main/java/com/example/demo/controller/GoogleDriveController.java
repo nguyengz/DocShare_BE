@@ -194,11 +194,11 @@ public class GoogleDriveController {
         file.setLink(link);
         file.setLinkImg(linkImg);
         fileService.save(file);
-        Package packages =packageService.getActivePackageWithType();
-        if (packages!=null) {
+        Package packages = packageService.getActivePackageWithType();
+        if (packages != null) {
             LocalDateTime startDate = LocalDateTime.now();
             Access access = new Access();
-          
+
             LocalDateTime endDate = startDate.plus(Duration.ofDays(packages.getDuration()));
             access.setUser(user);
             access.setPackages(packages);
@@ -263,6 +263,9 @@ public class GoogleDriveController {
             @PathVariable Long file_id, HttpServletResponse response) throws IOException, GeneralSecurityException {
         Users user = userService.findById(user_id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+        if (user.getEnabled() == false) {
+            throw new RuntimeException("Your account has been disabled!");
+        }
         List<Access> accesses = accessService.findAccessByUserAndValid(user_id, user);
         if (accesses == null || accesses.isEmpty()) {
 

@@ -115,7 +115,8 @@ public class AuthController {
         UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
 
         return ResponseEntity.ok(
-                new JwtResponse(token, userPrinciple.getName(), userPrinciple.getAuthorities(), userPrinciple.getId()));
+                new JwtResponse(token, userPrinciple.getName(), userPrinciple.getAuthorities(), userPrinciple.getId(),
+                        userPrinciple.isEnabled()));
     }
 
     @PutMapping("/update/profile")
@@ -299,7 +300,7 @@ public class AuthController {
         return new ResponseEntity<>(new UserResponse(user.getId(),
                 user.getUsername(),
                 user.getAvatar(), user.getFiles(), friendDTOs, followingDTOs, user.getEmail(), user.getAbout(),
-                user.getNumberPhone(), user.getLinksocial(), user.getName()), HttpStatus.OK);
+                user.getNumberPhone(), user.getLinksocial(), user.getName(), user.getEnabled()), HttpStatus.OK);
     }
 
     @PutMapping("/active")

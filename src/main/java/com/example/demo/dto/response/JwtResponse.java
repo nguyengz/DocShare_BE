@@ -10,7 +10,7 @@ public class JwtResponse {
     private String name;
     private Collection<? extends GrantedAuthority> roles;
     private Long id;
-    
+    private boolean status;
 
     public JwtResponse() {
     }
@@ -22,11 +22,20 @@ public class JwtResponse {
         this.roles = roles;
     }
 
-    public JwtResponse(String token, String name, Collection<? extends GrantedAuthority> authorities,Long id) {
+    public JwtResponse(String token, String name, Collection<? extends GrantedAuthority> authorities, Long id,
+            boolean status) {
         this.token = token;
         this.name = name;
         this.roles = authorities;
-        this.id=id;
+        this.id = id;
+        this.status = status;
+    }
+
+    public JwtResponse(String token, String name, Collection<? extends GrantedAuthority> authorities, Long id) {
+        this.token = token;
+        this.name = name;
+        this.roles = authorities;
+        this.id = id;
     }
 
     public Long getId() {
@@ -67,5 +76,13 @@ public class JwtResponse {
 
     public void setRoles(Collection<? extends GrantedAuthority> roles) {
         this.roles = roles;
+    }
+
+    public boolean getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

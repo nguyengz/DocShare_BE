@@ -131,15 +131,18 @@ public class File {
   public void setUserName(String userName) {
     this.userName = userName;
   }
+
   public int getTotalDownload() {
     int totalDownloads = 0;
-   for (Download download : downloads) {
-       totalDownloads ++;
-   }
-   return totalDownloads;
- }
+    if (downloads != null) {
+      for (Download download : downloads) {
+        totalDownloads++;
+      }
+    }
+    return totalDownloads;
+  }
 
- public void setTotalDownload(int total) {
-   this.totalDownload = total;
- }
+  public void setTotalDownload(int total) {
+    this.totalDownload = total;
+  }
 }
