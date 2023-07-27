@@ -159,9 +159,11 @@ public class PaypalController {
 	public String cancelPay(@RequestParam("id") String id, @RequestParam("name") String name) {
 
 		if ("null".equals(id)) {
-			return "redirect:http://localhost:3000/" + name + "/order?status=false";
+			// return "redirect:http://localhost:3000/" + name + "/order?status=false";
+			return "redirect:https://docsharevn.vercel.app/" + name + "/order?status=false";
 		} else {
-			return "redirect:http://localhost:3000/fileDetail/" + id + "?status=false";
+			// return "redirect:http://localhost:3000/fileDetail/" + id + "?status=false";
+			return "redirect:https://docsharevn.vercel.app/fileDetail/" + id + "?status=false";
 		}
 
 	}
@@ -193,7 +195,7 @@ public class PaypalController {
 
 			// Check if the user has the admin role
 			boolean isUser = user.getRoles().contains(RoleName.USER);
-			user.setMaxUpload(user.getMaxUpload() +order1.getPackages().getStorageSize());
+			user.setMaxUpload(user.getMaxUpload() + order1.getPackages().getStorageSize());
 			if (!isUser) {
 				Set<Role> roles = new HashSet<>();
 				Role userRole = roleService.findByName(RoleName.USER)
@@ -206,9 +208,11 @@ public class PaypalController {
 			if (payment.getState().equals("approved")) {
 				// Redirect to the file detail page with the file_id parameter
 				if ("null".equals(id)) {
-					return "redirect:http://localhost:3000/" + name + "/order?status=true";
+					// return "redirect:http://localhost:3000/" + name + "/order?status=true";
+					return "redirect:https://docsharevn.vercel.app/" + name + "/order?status=true";
 				} else {
-					return "redirect:http://localhost:3000/fileDetail/" + id + "?status=true";
+					// return "redirect:http://localhost:3000/fileDetail/" + id + "?status=true";
+					return "redirect:https://docsharevn.vercel.app/fileDetail/" + id + "?status=true";
 				}
 			}
 		} catch (PayPalRESTException e) {
