@@ -164,9 +164,11 @@ public class AuthController {
             throws IOException {
         if (userService.verify(code, password)) {
             // return "redirect:/http://localhost:3000/login"; kiểu String
-            response.sendRedirect("http://localhost:3000/login");
+            // response.sendRedirect("http://localhost:3000/login");
+            response.sendRedirect("https://docsharevn.vercel.app/login");
+
         } else {
-            response.sendRedirect("http://localhost:3000/login");
+            response.sendRedirect("https://docsharevn.vercel.app/login");
         }
     }
 
